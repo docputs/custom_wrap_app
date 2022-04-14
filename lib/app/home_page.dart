@@ -1,4 +1,4 @@
-import 'package:custom_wrap_app/app/custom_wrap.dart';
+import 'package:custom_wrap_app/app/overflowed_wrap.dart';
 import 'package:flutter/material.dart';
 
 import 'service.dart';
@@ -20,67 +20,55 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           const Text('Services'),
-          // Wrap(
-          //   children: [
-          //     Container(
-          //       height: 100,
-          //       width: double.infinity,
-          //       color: Colors.red,
-          //     ),
-          //     Container(
-          //       height: 100,
-          //       width: double.infinity,
-          //       color: Colors.yellow,
-          //     ),
-          //   ],
-          // ),
-          CustomWrap(
+          OverflowedWrap(
             maxLines: 2,
+            spacing: 10,
+            runSpacing: 10,
             overflowWidget: Container(
               color: Colors.blueAccent,
               height: 100,
-              width: 170,
+              width: 160,
               child: const Center(child: Text('More')),
             ),
             children: [
               Container(
+                key: const ValueKey(1),
                 color: Colors.red,
                 height: 100,
                 width: 100,
                 child: const Center(child: Text('1')),
               ),
               Container(
+                key: const ValueKey(2),
                 color: Colors.green,
                 height: 100,
                 width: 100,
                 child: const Center(child: Text('2')),
               ),
               Container(
+                key: const ValueKey(3),
                 color: Colors.yellow,
                 height: 100,
                 width: 100,
                 child: const Center(child: Text('3')),
               ),
               Container(
+                key: const ValueKey(4),
                 color: Colors.grey,
                 height: 100,
-                width: 130,
+                width: 300,
                 child: const Center(child: Text('4')),
               ),
               Container(
+                key: const ValueKey(5),
                 color: Colors.grey,
                 height: 100,
                 width: 130,
-                child: const Center(child: Text('4')),
-              ),
-              Container(
-                color: Colors.grey,
-                height: 100,
-                width: 130,
-                child: const Center(child: Text('4')),
+                child: const Center(child: Text('5')),
               ),
             ],
           ),
+          const Text('joao'),
         ],
       ),
     );
