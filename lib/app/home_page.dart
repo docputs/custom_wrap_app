@@ -1,6 +1,6 @@
+import 'package:custom_wrap_app/app/custom_wrap.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_wrap.dart';
 import 'service.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,17 +36,23 @@ class _HomePageState extends State<HomePage> {
           // ),
           CustomWrap(
             maxLines: 2,
+            overflowWidget: Container(
+              color: Colors.blueAccent,
+              height: 100,
+              width: 170,
+              child: const Center(child: Text('More')),
+            ),
             children: [
               Container(
                 color: Colors.red,
                 height: 100,
-                width: 200,
+                width: 100,
                 child: const Center(child: Text('1')),
               ),
               Container(
                 color: Colors.green,
                 height: 100,
-                width: 250,
+                width: 100,
                 child: const Center(child: Text('2')),
               ),
               Container(
@@ -56,10 +62,22 @@ class _HomePageState extends State<HomePage> {
                 child: const Center(child: Text('3')),
               ),
               Container(
-                color: Colors.blueAccent,
+                color: Colors.grey,
                 height: 100,
-                width: 200,
-                child: const Center(child: Text('More')),
+                width: 130,
+                child: const Center(child: Text('4')),
+              ),
+              Container(
+                color: Colors.grey,
+                height: 100,
+                width: 130,
+                child: const Center(child: Text('4')),
+              ),
+              Container(
+                color: Colors.grey,
+                height: 100,
+                width: 130,
+                child: const Center(child: Text('4')),
               ),
             ],
           ),

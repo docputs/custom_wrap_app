@@ -11,10 +11,11 @@ class CustomWrap extends MultiChildRenderObjectWidget {
   CustomWrap({
     Key? key,
     List<Widget> children = const [],
+    required Widget overflowWidget,
     required this.maxLines,
     this.spacing = 0,
     this.runSpacing = 0,
-  }) : super(key: key, children: children);
+  }) : super(key: key, children: [...children, overflowWidget]);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -83,107 +84,49 @@ class RenderCustomWrap extends RenderBox
       size = constraints.smallest;
       return;
     }
-    final childConstraints = BoxConstraints(maxWidth: constraints.maxWidth);
-    final List<_LineMetrics> lineMetrics = <_LineMetrics>[];
     final widthLimit = constraints.maxWidth;
-    double wrapHeight = 0.0;
-    double lineWidth = 0.0;
-    double lineHeight = 0.0;
-    int childCount = 0;
-    while (child != null) {
-      child.layout(childConstraints, parentUsesSize: true);
+    final childConstraints = BoxConstraints(maxWidth: widthLimit);
+    final overflowWidget = lastChild!;
+    double verticalOffset = 0;
+    bool hasOverflow = false;
+    double containerHeight = 0;
 
-      final childWidth = _getMainAxisExtent(child.size);
-      final childHeight = _getCrossAxisExtent(child.size);
+    overflowWidget.layout(childConstraints, parentUsesSize: true);
 
-      if (childCount > 0 && lineWidth + childWidth > widthLimit) {
-        wrapHeight += lineHeight;
-        if (lineMetrics.isNotEmpty) wrapHeight += lineSpacing;
-        lineMetrics.add(
-          _LineMetrics(lineWidth, lineHeight, childCount),
-        );
-        lineWidth = 0.0;
-        lineHeight = 0.0;
-        childCount = 0;
-      }
-
-      lineWidth += childWidth;
-      if (childCount > 0) lineWidth += spacing;
-      lineHeight = math.max(lineHeight, childHeight);
-      childCount += 1;
-
-      final childParentData = child.parentData! as CustomWrapParentData;
-      childParentData._runIndex = lineMetrics.length;
-      child = childParentData.nextSibling;
-    }
-    if (childCount > 0) {
-      wrapHeight += lineHeight;
-      if (lineMetrics.isNotEmpty) {
-        wrapHeight += lineSpacing;
-      }
-      lineMetrics.add(
-        _LineMetrics(lineWidth, lineHeight, childCount),
-      );
-    }
-
-    child = lastChild;
-    final difference = lineMetrics.length - maxLines;
-    for (var j = 0; j < difference; ++j) {
-      final childCount = lineMetrics.reversed.elementAt(j).childCount;
-      for (var k = 0; k < childCount; k++) {
-        final childParentData = child!.parentData! as CustomWrapParentData;
-        childParentData._shouldBePainted = false;
-        child = childParentData.previousSibling;
-      }
-    }
-
-    final runCount = lineMetrics.length;
-    assert(runCount > 0);
-
-    // Set CustomWrap widget size
-    size = constraints.constrain(Size(constraints.maxWidth, wrapHeight));
-    final containerWidth = size.width;
-    final containerHeight = size.height;
-
-    final heightFreeSpace = math.max(0.0, containerHeight - wrapHeight);
-
-    double lineVerticalOffset = 0;
-    child = firstChild;
-    for (var i = 0; i < runCount; ++i) {
-      final metrics = lineMetrics[i];
-      print('i: $i, metrics: $metrics');
-      final lineWidth = metrics.mainAxisExtent;
-      final lineHeight = metrics.crossAxisExtent;
-      final childCount = metrics.childCount;
-
-      final widthFreeSpace = math.max(0.0, containerWidth - lineWidth);
-      double childLeadingSpace = 0.0;
-      double childBetweenSpace = 0.0;
-
-      childBetweenSpace += spacing;
-
-      double childHorizontalOffset = 0;
+    for (var i = 0; i < maxLines; i++) {
+      double lineWidth = 0;
       while (child != null) {
-        final childParentData = child.parentData! as CustomWrapParentData;
-        if (childParentData._runIndex != i) {
-          break;
-        }
-        final childWidth = _getMainAxisExtent(child.size);
-        final childHeight = _getCrossAxisExtent(child.size);
+        child.layout(childConstraints, parentUsesSize: true);
+        final childWidth = child.size.width;
+        final childHeight = child.size.height;
 
-        childParentData.offset = Offset(
-          childHorizontalOffset,
-          lineVerticalOffset,
-        );
-        childHorizontalOffset += childWidth + childBetweenSpace;
+        if (i == maxLines - 1) {
+          if (lineWidth + childWidth + overflowWidget.size.width > widthLimit &&
+              child != overflowWidget) {
+            hasOverflow = true;
+            final childParentData = child.parentData! as CustomWrapParentData;
+            childParentData._shouldBePainted = false;
+          }
+        } else {
+          if (lineWidth + childWidth > widthLimit) {
+            verticalOffset += childHeight;
+            break;
+          }
+        }
+
+        containerHeight = math.max(containerHeight, childHeight);
+
+        final childParentData = child.parentData! as CustomWrapParentData;
+        childParentData.offset = Offset(lineWidth, verticalOffset);
+        if (!hasOverflow) {
+          lineWidth += childWidth;
+        }
+
         child = childParentData.nextSibling;
       }
-      lineVerticalOffset += lineHeight + lineSpacing;
     }
+    size = constraints.constrain(Size(widthLimit, containerHeight));
   }
-
-  double _getMainAxisExtent(Size childSize) => childSize.width;
-  double _getCrossAxisExtent(Size childSize) => childSize.height;
 
   @override
   void setupParentData(RenderBox child) {
@@ -206,22 +149,5 @@ class RenderCustomWrap extends RenderBox
 }
 
 class CustomWrapParentData extends ContainerBoxParentData<RenderBox> {
-  int _runIndex = 0;
   bool _shouldBePainted = true;
-}
-
-class _LineMetrics {
-  final double mainAxisExtent;
-  final double crossAxisExtent;
-  final int childCount;
-
-  const _LineMetrics(
-    this.mainAxisExtent,
-    this.crossAxisExtent,
-    this.childCount,
-  );
-
-  @override
-  String toString() =>
-      '_LineMetrics(mainAxisExtent: $mainAxisExtent, crossAxisExtent: $crossAxisExtent, childCount: $childCount)';
 }
