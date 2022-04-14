@@ -102,14 +102,15 @@ class RenderCustomWrap extends RenderBox
         final childParentData = child.parentData! as CustomWrapParentData;
 
         if (i == maxLines - 1) {
-          if (lineWidth + childWidth + overflowChild.size.width > widthLimit &&
+          if (lineWidth + childWidth + overflowChild.size.width + spacing >
+                  widthLimit &&
               child != overflowChild) {
             hasOverflow = true;
             childParentData._shouldBePainted = false;
           }
         } else {
-          if (lineWidth + childWidth > widthLimit) {
-            verticalOffset += childHeight;
+          if (lineWidth + childWidth + spacing > widthLimit) {
+            verticalOffset += childHeight + lineSpacing;
             break;
           }
         }
@@ -118,7 +119,7 @@ class RenderCustomWrap extends RenderBox
 
         childParentData.offset = Offset(lineWidth, verticalOffset);
         if (!hasOverflow) {
-          lineWidth += childWidth;
+          lineWidth += childWidth + spacing;
         }
 
         child = childParentData.nextSibling;
