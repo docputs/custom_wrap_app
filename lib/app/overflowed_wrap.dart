@@ -19,7 +19,7 @@ class OverflowedWrap extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return RenderOverflowedWrap(
+    return _RenderOverflowedWrap(
       maxLines: maxLines,
       runSpacing: runSpacing,
       spacing: spacing,
@@ -28,7 +28,9 @@ class OverflowedWrap extends MultiChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderOverflowedWrap renderObject) {
+    BuildContext context,
+    _RenderOverflowedWrap renderObject,
+  ) {
     renderObject
       ..maxLines = maxLines
       ..spacing = spacing
@@ -36,11 +38,11 @@ class OverflowedWrap extends MultiChildRenderObjectWidget {
   }
 }
 
-class RenderOverflowedWrap extends RenderBox
+class _RenderOverflowedWrap extends RenderBox
     with
-        ContainerRenderObjectMixin<RenderBox, CustomWrapParentData>,
-        RenderBoxContainerDefaultsMixin<RenderBox, CustomWrapParentData> {
-  RenderOverflowedWrap({
+        ContainerRenderObjectMixin<RenderBox, _CustomWrapParentData>,
+        RenderBoxContainerDefaultsMixin<RenderBox, _CustomWrapParentData> {
+  _RenderOverflowedWrap({
     required int maxLines,
     double spacing = 0,
     double runSpacing = 0,
@@ -100,7 +102,7 @@ class RenderOverflowedWrap extends RenderBox
         child.layout(childConstraints, parentUsesSize: true);
         final childWidth = child.size.width;
         final childHeight = child.size.height;
-        final childParentData = child.parentData! as CustomWrapParentData;
+        final childParentData = child.parentData! as _CustomWrapParentData;
 
         if (i == maxLines - 1) {
           if (lineWidth + childWidth + overflowChild.size.width + spacing >
@@ -134,8 +136,8 @@ class RenderOverflowedWrap extends RenderBox
 
   @override
   void setupParentData(RenderBox child) {
-    if (child.parentData is! CustomWrapParentData) {
-      child.parentData = CustomWrapParentData();
+    if (child.parentData is! _CustomWrapParentData) {
+      child.parentData = _CustomWrapParentData();
     }
   }
 
@@ -143,7 +145,7 @@ class RenderOverflowedWrap extends RenderBox
   void paint(PaintingContext context, Offset offset) {
     RenderBox? child = firstChild;
     while (child != null) {
-      final childParentData = child.parentData! as CustomWrapParentData;
+      final childParentData = child.parentData! as _CustomWrapParentData;
       if (childParentData._shouldBePainted) {
         context.paintChild(child, childParentData.offset + offset);
       }
@@ -157,6 +159,6 @@ class RenderOverflowedWrap extends RenderBox
   }
 }
 
-class CustomWrapParentData extends ContainerBoxParentData<RenderBox> {
+class _CustomWrapParentData extends ContainerBoxParentData<RenderBox> {
   bool _shouldBePainted = true;
 }
