@@ -86,12 +86,12 @@ class RenderCustomWrap extends RenderBox
     }
     final widthLimit = constraints.maxWidth;
     final childConstraints = BoxConstraints(maxWidth: widthLimit);
-    final overflowWidget = lastChild!;
+    final overflowChild = lastChild!;
     double verticalOffset = 0;
     bool hasOverflow = false;
     double containerHeight = 0;
 
-    overflowWidget.layout(childConstraints, parentUsesSize: true);
+    overflowChild.layout(childConstraints, parentUsesSize: true);
 
     for (var i = 0; i < maxLines; i++) {
       double lineWidth = 0;
@@ -99,12 +99,12 @@ class RenderCustomWrap extends RenderBox
         child.layout(childConstraints, parentUsesSize: true);
         final childWidth = child.size.width;
         final childHeight = child.size.height;
+        final childParentData = child.parentData! as CustomWrapParentData;
 
         if (i == maxLines - 1) {
-          if (lineWidth + childWidth + overflowWidget.size.width > widthLimit &&
-              child != overflowWidget) {
+          if (lineWidth + childWidth + overflowChild.size.width > widthLimit &&
+              child != overflowChild) {
             hasOverflow = true;
-            final childParentData = child.parentData! as CustomWrapParentData;
             childParentData._shouldBePainted = false;
           }
         } else {
@@ -116,7 +116,6 @@ class RenderCustomWrap extends RenderBox
 
         containerHeight = math.max(containerHeight, childHeight);
 
-        final childParentData = child.parentData! as CustomWrapParentData;
         childParentData.offset = Offset(lineWidth, verticalOffset);
         if (!hasOverflow) {
           lineWidth += childWidth;
