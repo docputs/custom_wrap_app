@@ -1,8 +1,6 @@
 import 'package:custom_wrap_app/app/overflowed_wrap.dart';
 import 'package:flutter/material.dart';
 
-import 'service.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -27,63 +25,63 @@ class _HomePageState extends State<HomePage> {
             overflowWidget: Container(
               color: Colors.blueAccent,
               height: 100,
-              width: 160,
+              width: 100,
               child: const Center(child: Text('More')),
             ),
-            children: [
-              Container(
-                key: const ValueKey(1),
+            children: const [
+              WrapItem(
+                text: '1',
+                width: 100,
+                height: 100,
                 color: Colors.red,
-                height: 100,
-                width: 100,
-                child: const Center(child: Text('1')),
               ),
-              Container(
-                key: const ValueKey(2),
+              WrapItem(
+                text: '2',
+                width: 150,
+                height: 100,
                 color: Colors.green,
-                height: 100,
-                width: 100,
-                child: const Center(child: Text('2')),
               ),
-              Container(
-                key: const ValueKey(3),
+              WrapItem(
+                text: '3',
+                width: 50,
+                height: 100,
                 color: Colors.yellow,
-                height: 100,
-                width: 100,
-                child: const Center(child: Text('3')),
               ),
-              Container(
-                key: const ValueKey(4),
-                color: Colors.grey,
+              WrapItem(
+                text: '4',
+                width: 200,
                 height: 100,
-                width: 300,
-                child: const Center(child: Text('4')),
-              ),
-              Container(
-                key: const ValueKey(5),
                 color: Colors.grey,
-                height: 100,
-                width: 130,
-                child: const Center(child: Text('5')),
               ),
             ],
           ),
-          const Text('joao'),
         ],
       ),
     );
   }
 }
 
-const services = [
-  Service(name: 'this', icon: Icons.alarm),
-  Service(name: 'is', icon: Icons.lock_clock_outlined),
-  Service(name: 'a', icon: Icons.add_comment_rounded),
-  Service(name: 'testing', icon: Icons.addchart_outlined),
-  Service(name: 'a long service', icon: Icons.air),
-  Service(name: 'this', icon: Icons.alarm),
-  Service(name: 'is', icon: Icons.lock_clock_outlined),
-  Service(name: 'a', icon: Icons.add_comment_rounded),
-  Service(name: 'testing', icon: Icons.addchart_outlined),
-  Service(name: 'a long service', icon: Icons.air),
-];
+class WrapItem extends StatelessWidget {
+  final String text;
+  final double width;
+  final double height;
+  final Color color;
+
+  const WrapItem({
+    Key? key,
+    required this.text,
+    required this.width,
+    required this.height,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      color: color,
+      child: Center(child: Text(text)),
+    );
+  }
+}
