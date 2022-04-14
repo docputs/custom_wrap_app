@@ -116,7 +116,10 @@ class RenderOverflowedWrap extends RenderBox
           }
         }
 
-        containerHeight = math.max(containerHeight, childHeight);
+        containerHeight = math.max(
+          containerHeight,
+          childHeight + verticalOffset,
+        );
 
         childParentData.offset = Offset(lineWidth, verticalOffset);
         if (!hasOverflow) {
