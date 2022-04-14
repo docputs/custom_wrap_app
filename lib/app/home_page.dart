@@ -77,11 +77,16 @@ class WrapItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      color: color,
-      child: Center(child: Text(text)),
+    return GestureDetector(
+      onTap: () {
+        print('$text tapped');
+      },
+      child: Container(
+        width: width,
+        height: height,
+        color: color,
+        child: Center(child: Text(text)),
+      ),
     );
   }
 }

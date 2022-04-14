@@ -150,6 +150,11 @@ class RenderOverflowedWrap extends RenderBox
       child = childParentData.nextSibling;
     }
   }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+    return defaultHitTestChildren(result, position: position);
+  }
 }
 
 class CustomWrapParentData extends ContainerBoxParentData<RenderBox> {
