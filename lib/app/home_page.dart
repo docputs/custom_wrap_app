@@ -29,41 +29,30 @@ class _HomePageState extends State<HomePage> {
                 maxLines: 2,
                 spacing: 10,
                 runSpacing: 10,
-                overflowWidget: Container(
-                  key: const ValueKey('overflow'),
-                  color: Colors.blueAccent,
-                  height: 100,
-                  width: 100,
-                  child: const Center(child: Text('More')),
-                ),
+                overflowWidget: _buildOverflowWidget(),
                 children: const [
                   WrapItem(
-                    text: '1',
-                    width: 100,
+                    text: 'this is a big widget',
                     height: 100,
                     color: Colors.red,
                   ),
                   WrapItem(
-                    text: '2',
-                    width: 150,
+                    text: 'kind of small',
                     height: 100,
                     color: Colors.green,
                   ),
                   WrapItem(
-                    text: '3',
-                    width: 50,
+                    text: 'a little big bigger',
                     height: 100,
                     color: Colors.yellow,
                   ),
                   WrapItem(
-                    text: '4',
-                    width: 200,
+                    text: 'this is the biggest widget that we have',
                     height: 100,
                     color: Colors.grey,
                   ),
                   WrapItem(
-                    text: '5',
-                    width: 160,
+                    text: 'this fits the screen',
                     height: 100,
                     color: Colors.brown,
                   ),
@@ -82,32 +71,27 @@ class _HomePageState extends State<HomePage> {
                 overflowWidget: _buildOverflowWidget(),
                 children: const [
                   WrapItem(
-                    text: '1',
-                    width: 100,
+                    text: 'this is a big widget',
                     height: 100,
                     color: Colors.red,
                   ),
                   WrapItem(
-                    text: '2',
-                    width: 150,
+                    text: 'kind of small',
                     height: 100,
                     color: Colors.green,
                   ),
                   WrapItem(
-                    text: '3',
-                    width: 50,
+                    text: 'a little big bigger',
                     height: 100,
                     color: Colors.yellow,
                   ),
                   WrapItem(
-                    text: '4',
-                    width: 200,
+                    text: 'this is the biggest widget that we have',
                     height: 100,
                     color: Colors.grey,
                   ),
                   WrapItem(
-                    text: '5',
-                    width: 200,
+                    text: 'this is bigger than the screen width',
                     height: 100,
                     color: Colors.brown,
                   ),
@@ -143,15 +127,15 @@ class _HomePageState extends State<HomePage> {
 
 class WrapItem extends StatelessWidget {
   final String text;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final Color color;
 
   const WrapItem({
     Key? key,
     required this.text,
-    required this.width,
-    required this.height,
+    this.width,
+    this.height,
     required this.color,
   }) : super(key: key);
 
@@ -165,7 +149,7 @@ class WrapItem extends StatelessWidget {
         width: width,
         height: height,
         color: color,
-        child: Center(child: Text(text)),
+        child: SizedBox(child: Text(text, maxLines: 1)),
       ),
     );
   }
