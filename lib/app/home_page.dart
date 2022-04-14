@@ -15,47 +15,127 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Custom wrap'),
       ),
-      body: Column(
-        children: [
-          const Text('Services'),
-          OverflowedWrap(
-            maxLines: 2,
-            spacing: 10,
-            runSpacing: 10,
-            overflowWidget: Container(
-              color: Colors.blueAccent,
-              height: 100,
-              width: 100,
-              child: const Center(child: Text('More')),
-            ),
-            children: const [
-              WrapItem(
-                text: '1',
-                width: 100,
-                height: 100,
-                color: Colors.red,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            children: [
+              const Text(
+                'Without overflow',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              WrapItem(
-                text: '2',
-                width: 150,
-                height: 100,
-                color: Colors.green,
+              const SizedBox(height: 10),
+              OverflowedWrap(
+                maxLines: 2,
+                spacing: 10,
+                runSpacing: 10,
+                overflowWidget: Container(
+                  key: const ValueKey('overflow'),
+                  color: Colors.blueAccent,
+                  height: 100,
+                  width: 100,
+                  child: const Center(child: Text('More')),
+                ),
+                children: const [
+                  WrapItem(
+                    text: '1',
+                    width: 100,
+                    height: 100,
+                    color: Colors.red,
+                  ),
+                  WrapItem(
+                    text: '2',
+                    width: 150,
+                    height: 100,
+                    color: Colors.green,
+                  ),
+                  WrapItem(
+                    text: '3',
+                    width: 50,
+                    height: 100,
+                    color: Colors.yellow,
+                  ),
+                  WrapItem(
+                    text: '4',
+                    width: 200,
+                    height: 100,
+                    color: Colors.grey,
+                  ),
+                  WrapItem(
+                    text: '5',
+                    width: 160,
+                    height: 100,
+                    color: Colors.brown,
+                  ),
+                ],
               ),
-              WrapItem(
-                text: '3',
-                width: 50,
-                height: 100,
-                color: Colors.yellow,
+              const SizedBox(height: 40),
+              const Text(
+                'With overflow',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              WrapItem(
-                text: '4',
-                width: 200,
-                height: 100,
-                color: Colors.grey,
+              const SizedBox(height: 10),
+              OverflowedWrap(
+                maxLines: 2,
+                spacing: 10,
+                runSpacing: 10,
+                overflowWidget: _buildOverflowWidget(),
+                children: const [
+                  WrapItem(
+                    text: '1',
+                    width: 100,
+                    height: 100,
+                    color: Colors.red,
+                  ),
+                  WrapItem(
+                    text: '2',
+                    width: 150,
+                    height: 100,
+                    color: Colors.green,
+                  ),
+                  WrapItem(
+                    text: '3',
+                    width: 50,
+                    height: 100,
+                    color: Colors.yellow,
+                  ),
+                  WrapItem(
+                    text: '4',
+                    width: 200,
+                    height: 100,
+                    color: Colors.grey,
+                  ),
+                  WrapItem(
+                    text: '5',
+                    width: 200,
+                    height: 100,
+                    color: Colors.brown,
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOverflowWidget() {
+    return Container(
+      key: const ValueKey('overflow'),
+      height: 100,
+      width: 100,
+      child: const Center(
+        child: Text(
+          'More',
+          style: TextStyle(
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue, width: 5),
       ),
     );
   }
