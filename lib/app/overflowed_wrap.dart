@@ -3,12 +3,12 @@ import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class CustomWrap extends MultiChildRenderObjectWidget {
+class OverflowedWrap extends MultiChildRenderObjectWidget {
   final int maxLines;
   final double spacing;
   final double runSpacing;
 
-  CustomWrap({
+  OverflowedWrap({
     Key? key,
     List<Widget> children = const [],
     required Widget overflowWidget,
@@ -19,7 +19,7 @@ class CustomWrap extends MultiChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return RenderCustomWrap(
+    return RenderOverflowedWrap(
       maxLines: maxLines,
       runSpacing: runSpacing,
       spacing: spacing,
@@ -27,7 +27,8 @@ class CustomWrap extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderCustomWrap renderObject) {
+  void updateRenderObject(
+      BuildContext context, RenderOverflowedWrap renderObject) {
     renderObject
       ..maxLines = maxLines
       ..spacing = spacing
@@ -35,11 +36,11 @@ class CustomWrap extends MultiChildRenderObjectWidget {
   }
 }
 
-class RenderCustomWrap extends RenderBox
+class RenderOverflowedWrap extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, CustomWrapParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, CustomWrapParentData> {
-  RenderCustomWrap({
+  RenderOverflowedWrap({
     required int maxLines,
     double spacing = 0,
     double runSpacing = 0,
