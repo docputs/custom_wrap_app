@@ -104,18 +104,24 @@ class _RenderOverflowedWrap extends RenderBox
         final childHeight = child.size.height;
         final childParentData = child.parentData! as _CustomWrapParentData;
 
+        bool hasWidthOverflow() {
+          return lineWidth + childWidth + spacing > widthLimit;
+        }
+
         if (i == maxLines - 1) {
-          if (lineWidth + childWidth + overflowChild.size.width + spacing >
-                  widthLimit &&
-              child != overflowChild) {
+          if (hasWidthOverflow() && child != overflowChild) {
             hasOverflow = true;
             childParentData._shouldBePainted = false;
           }
         } else {
-          if (lineWidth + childWidth + spacing > widthLimit) {
+          if (hasWidthOverflow()) {
             verticalOffset += childHeight + lineSpacing;
             break;
           }
+        }
+
+        if (!hasOverflow && child == overflowChild) {
+          childParentData._shouldBePainted = false;
         }
 
         containerHeight = math.max(
