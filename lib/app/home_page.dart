@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.yellow,
                   ),
                   WrapItem(
-                    text: 'this is the biggest widget that we have',
+                    text: 'this is the biggest widget',
                     height: 100,
                     color: Colors.grey,
                   ),
