@@ -143,7 +143,7 @@ class WrapItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('$text tapped');
+        debugPrint('$text tapped');
       },
       child: Container(
         width: width,
