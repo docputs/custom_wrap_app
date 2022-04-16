@@ -28,27 +28,22 @@ class HomePage extends StatelessWidget {
                 children: const [
                   WrapItem(
                     text: 'this is a big widget',
-                    height: 100,
                     color: Colors.red,
                   ),
                   WrapItem(
                     text: 'kind of small',
-                    height: 100,
                     color: Colors.green,
                   ),
                   WrapItem(
                     text: 'a little big bigger',
-                    height: 100,
                     color: Colors.yellow,
                   ),
                   WrapItem(
                     text: 'this is the biggest widget',
-                    height: 100,
                     color: Colors.grey,
                   ),
                   WrapItem(
                     text: 'this fits the screen',
-                    height: 100,
                     color: Colors.brown,
                   ),
                 ],
@@ -67,27 +62,22 @@ class HomePage extends StatelessWidget {
                 children: const [
                   WrapItem(
                     text: 'this is a big widget',
-                    height: 100,
                     color: Colors.red,
                   ),
                   WrapItem(
                     text: 'kind of small',
-                    height: 100,
                     color: Colors.green,
                   ),
                   WrapItem(
                     text: 'a little big bigger',
-                    height: 100,
                     color: Colors.yellow,
                   ),
                   WrapItem(
                     text: 'this is the biggest widget that we have',
-                    height: 100,
                     color: Colors.grey,
                   ),
                   WrapItem(
                     text: 'this is bigger than the screen width',
-                    height: 100,
                     color: Colors.brown,
                   ),
                 ],
@@ -142,7 +132,7 @@ class WrapItem extends StatelessWidget {
       },
       child: Container(
         width: width,
-        height: height,
+        height: 100,
         color: color,
         child: SizedBox(child: Text(text, maxLines: 1)),
       ),
