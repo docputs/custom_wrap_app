@@ -1,7 +1,7 @@
 import 'package:custom_wrap_app/app/overflowed_wrap.dart';
 import 'package:flutter/material.dart';
 
-import 'wrap_item.dart';
+import 'colored_text_box.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,23 +28,23 @@ class HomePage extends StatelessWidget {
                 runSpacing: 10,
                 overflowWidget: _buildOverflowWidget(),
                 children: const [
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this is a big widget',
                     color: Colors.red,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'kind of small',
                     color: Colors.green,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'a little big bigger',
                     color: Colors.yellow,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this is the biggest widget',
                     color: Colors.grey,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this fits the screen',
                     color: Colors.brown,
                   ),
@@ -62,23 +62,23 @@ class HomePage extends StatelessWidget {
                 runSpacing: 10,
                 overflowWidget: _buildOverflowWidget(),
                 children: const [
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this is a big widget',
                     color: Colors.red,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'kind of small',
                     color: Colors.green,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'a little big bigger',
                     color: Colors.yellow,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this is the biggest widget that we have',
                     color: Colors.grey,
                   ),
-                  WrapItem(
+                  ColoredTextBox(
                     text: 'this is bigger than the screen width',
                     color: Colors.brown,
                   ),

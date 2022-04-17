@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class WrapItem extends StatelessWidget {
+class ColoredTextBox extends StatelessWidget {
   final String text;
   final double? width;
   final double? height;
   final Color color;
 
-  const WrapItem({
+  const ColoredTextBox({
     Key? key,
     required this.text,
     this.width,
