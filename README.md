@@ -1,16 +1,7 @@
-# custom_wrap_app
+# Custom Wrap App
 
-A new Flutter project.
+A small project that shows a custom wrap widget with a maximum number of lines. If this number is exceeded, the overflowWidget will be displayed.
 
-## Getting Started
+The widget was created from scratch using MultiChildRenderObjectWidget and RenderBox.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src='res/home_page.png' width=300>
