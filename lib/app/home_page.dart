@@ -1,6 +1,8 @@
 import 'package:custom_wrap_app/app/overflowed_wrap.dart';
 import 'package:flutter/material.dart';
 
+import 'wrap_item.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -105,36 +107,6 @@ class HomePage extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 5),
-      ),
-    );
-  }
-}
-
-class WrapItem extends StatelessWidget {
-  final String text;
-  final double? width;
-  final double? height;
-  final Color color;
-
-  const WrapItem({
-    Key? key,
-    required this.text,
-    this.width,
-    this.height,
-    required this.color,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        debugPrint('$text tapped');
-      },
-      child: Container(
-        width: width,
-        height: 100,
-        color: color,
-        child: SizedBox(child: Text(text, maxLines: 1)),
       ),
     );
   }
