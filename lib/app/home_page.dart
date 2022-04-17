@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.green,
                   ),
                   ColoredTextBox(
-                    text: 'a little big bigger',
+                    text: 'a little bit bigger',
                     color: Colors.yellow,
                   ),
                   ColoredTextBox(
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
                     color: Colors.green,
                   ),
                   ColoredTextBox(
-                    text: 'a little big bigger',
+                    text: 'a little bit bigger',
                     color: Colors.yellow,
                   ),
                   ColoredTextBox(
